@@ -33,5 +33,7 @@ public class UpdateNoteCommandHandler  : IRequestHandler<CreateNoteCommand, Guid
 
         await _dbContext.Notes.AddAsync(note, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return note.Id;
     }
 }

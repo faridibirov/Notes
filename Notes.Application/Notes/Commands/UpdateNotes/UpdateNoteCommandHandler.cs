@@ -36,5 +36,13 @@ public class DeleteNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
         entity.EditDate = DateTime.Now;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
+
+    }
+
+    Task IRequestHandler<UpdateNoteCommand>.Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

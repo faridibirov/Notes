@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Notes.Application;
 using Notes.Application.Common.Mappings;
 using Notes.Application.Interfaces;
@@ -8,22 +9,23 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
- 
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
 
-//    try
-//    {
-//        var context = serviceProvider.GetRequiredService<NotesDbContext>();
-//        DbInitializer.Initialize(context);
-//    }
-//    catch(Exception ex) 
-//    {
-//    }
 
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+
+    try
+    {
+        var context = serviceProvider.GetRequiredService<NotesDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+    }
+
+}
 
 builder.Services.AddAutoMapper(config=>
 {
@@ -32,6 +34,9 @@ config.AddProfile(new AssemblyMappingProfile(typeof(INotesDbContext).Assembly));
 });
 
 builder.Services.AddApplication();
+builder.Services.AddControllers();
+builder.Services.AddPersistence(builder.Configuration);
+
 
 builder.Services.AddCors(options =>
 {
@@ -43,8 +48,14 @@ builder.Services.AddCors(options =>
     });
 });
 
+app.UseRouting();
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 
 
-app.MapGet("/", () => "Hello World!");
+app.UseEndpoints(endpoints=>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

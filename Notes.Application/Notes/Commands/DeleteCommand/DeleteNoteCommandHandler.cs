@@ -22,18 +22,24 @@ public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand>
     }
 
     public async Task<Unit> Handle(DeleteNoteCommand request,
-        CancellationToken cancellationToken)
+             CancellationToken cancellationToken)
     {
-        var entity =
-            await _dbContext.Notes
-            .FindAsync(new object[] {request.Id}, cancellationToken);
+        var entity = await _dbContext.Notes
+            .FindAsync(new object[] { request.Id }, cancellationToken);
 
-        if (entity == null || entity.UserId!=request.UserId)
-        {   
+        if (entity == null || entity.UserId != request.UserId)
+        {
             throw new NotFoundException(nameof(Note), request.Id);
         }
 
         _dbContext.Notes.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
+    }
+
+    Task IRequestHandler<DeleteNoteCommand>.Handle(DeleteNoteCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }
