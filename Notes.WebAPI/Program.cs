@@ -8,24 +8,13 @@ using Notes.Persistence.EntityTypeConfigurations;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
 
 
-using (var scope = app.Services.CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
+builder.Configuration.AddJsonFile("appsettings.json");
 
-    try
-    {
-        var context = serviceProvider.GetRequiredService<NotesDbContext>();
-        DbInitializer.Initialize(context);
-    }
-    catch (Exception ex)
-    {
-    }
+builder.Services.AddDbContext<NotesDbContext>();
 
-}
 
 builder.Services.AddAutoMapper(config=>
 {
@@ -47,6 +36,9 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
+
+var app = builder.Build();
+
 
 app.UseRouting();
 app.UseHttpsRedirection();

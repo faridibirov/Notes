@@ -11,11 +11,11 @@ using Notes.Application.Common.Exceptions;
 
 namespace Notes.Application.Notes.Commands.UpdateNotes;
 
-public class DeleteNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
+public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
 {
     private readonly INotesDbContext _dbContext;
 
-    public DeleteNoteCommandHandler(INotesDbContext dbContext)
+    public UpdateNoteCommandHandler(INotesDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -41,8 +41,4 @@ public class DeleteNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
 
     }
 
-    Task IRequestHandler<UpdateNoteCommand>.Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
 }
