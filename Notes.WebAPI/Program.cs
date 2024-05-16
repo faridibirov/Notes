@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Notes.Application;
 using Notes.Application.Common.Mappings;
@@ -13,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("appsettings.json");
 
-builder.Services.AddDbContext<NotesDbContext>();
-
+builder.Services.AddDbContext<NotesDbContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(config=>
 {

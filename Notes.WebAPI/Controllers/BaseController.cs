@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Notes.WebAPI.Controllers;
 
+[Route("api/[controller]")]
 public class BaseController : ControllerBase
 {
     private IMediator _mediator;
