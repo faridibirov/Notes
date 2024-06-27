@@ -2,6 +2,7 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Notes.Identity;
 using Notes.Identity.Data;
 using Notes.Identity.Models;
@@ -34,13 +35,23 @@ builder.Services.ConfigureApplicationCookie(config =>
     config.LogoutPath = "/Auth/Logout";
 });
 
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "Styles")),
+    RequestPath = "/styles"
+});
+
+app.UseRouting();
 app.UseIdentityServer();
 
 SeedDatabase();
 
-app.MapGet("/", () => "Hello World!");
+app.MapDefaultControllerRoute();
 
 
 app.Run();
