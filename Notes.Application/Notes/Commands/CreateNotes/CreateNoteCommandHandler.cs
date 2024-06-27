@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Notes.Application.Notes.Commands.CreateNotes;
 
-public class UpdateNoteCommandHandler  : IRequestHandler<CreateNoteCommand, Guid>
+public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, Guid>
 {
     private readonly INotesDbContext _dbContext;
 
-    public UpdateNoteCommandHandler(INotesDbContext dbContext)
+    public CreateNoteCommandHandler(INotesDbContext dbContext)
     {
         _dbContext = dbContext;
     }

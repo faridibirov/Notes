@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 using Notes.Application.Notes.Commands.CreateNotes;
 using Notes.Application.Notes.Commands.DeleteCommand;
 using Notes.Application.Notes.Commands.UpdateNotes;
 using Notes.Application.Notes.Queries.GetNoteDetails;
 using Notes.Application.Notes.Queries.GetNoteList;
 using Notes.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Notes.WebAPI.Controllers;
 
@@ -21,6 +22,7 @@ public class NoteController : BaseController
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<NoteListVM>> GetAll()
     {
         var query = new GetNoteListQuery
@@ -34,6 +36,7 @@ public class NoteController : BaseController
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<NoteDetailsVM>> Get(Guid id)
     {
         var query = new GetNoteDetailsQuery
@@ -48,6 +51,7 @@ public class NoteController : BaseController
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateNoteDto createNoteDto)
     {
         var command = _mapper.Map<CreateNoteCommand>(createNoteDto);
@@ -58,6 +62,7 @@ public class NoteController : BaseController
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update([FromBody] UpdateNoteDto updateNoteDto)
     {
         var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
@@ -67,6 +72,7 @@ public class NoteController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(Guid id)
     {
         var command = new DeleteNoteCommand
