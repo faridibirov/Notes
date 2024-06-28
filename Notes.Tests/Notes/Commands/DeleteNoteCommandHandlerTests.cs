@@ -22,7 +22,7 @@ public class DeleteNoteCommandHandlerTests : TestCommandBase
 
         // Assert 
 
-        Assert.NotNull(Context.Notes.SingleOrDefault(note =>
+        Assert.Null(Context.Notes.SingleOrDefault(note =>
         note.Id == NotesContextFactory.NoteIdForDelete));
 
     }
@@ -55,6 +55,7 @@ public class DeleteNoteCommandHandlerTests : TestCommandBase
             new CreateNoteCommand
             {
                 Title = "NoteTitle",
+                Details = "NoteDetails",
                 UserId = NotesContextFactory.UserAId
             }, CancellationToken.None);
 
