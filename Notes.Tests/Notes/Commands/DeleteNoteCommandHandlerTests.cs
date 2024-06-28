@@ -2,6 +2,7 @@
 using Notes.Application.Notes.Commands.DeleteCommand;
 using Microsoft.EntityFrameworkCore;
 using Notes.Application.Common.Exceptions;
+using Notes.Application.Notes.Commands.CreateNotes;
 namespace Notes.Tests.Notes.Commands;
 
 public class DeleteNoteCommandHandlerTests : TestCommandBase
@@ -47,6 +48,24 @@ public class DeleteNoteCommandHandlerTests : TestCommandBase
     [Fact]
     public async Task DeleteNoteCommandHandler_FailOnWrongUserId()
     {
+        //Arrange
+        var deleteHandler = new DeleteNoteCommandHandler(Context);
+        var createHandler = new CreateNoteCommandHandler(Context);
+        var noteId = await createHandler.Handle(
+            new CreateNoteCommand
+            {
+                Title = "NoteTitle",
+                UserId = NotesContextFactory.UserAId
+            }, CancellationToken.None);
 
+        //Act
+        //Assert
+        await Assert.ThrowsAsync<NotFoundException>(async () =>
+        await deleteHandler.Handle(
+            new DeleteNoteCommand
+            {
+                Id = noteId,
+                UserId = NotesContextFactory.UserBId
+            }, CancellationToken.None));
     }
 }

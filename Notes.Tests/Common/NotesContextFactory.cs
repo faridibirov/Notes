@@ -23,7 +23,7 @@ public class NotesContextFactory
         context.Notes.AddRange(
             new Note
             {
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Today,
                 Details = "Details1",
                 EditDate = null,
                 Id = Guid.Parse("2DD9DCDD-0FCB-4172-B783-9608673A7866"),
@@ -32,7 +32,7 @@ public class NotesContextFactory
             },
             new Note
             {
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Today,
                 Details = "Details2",
                 EditDate = null,
                 Id = Guid.Parse("0DFC814C-F625-4B0B-8A69-1A8731591999"),
@@ -42,7 +42,7 @@ public class NotesContextFactory
 
             new Note
              {
-                 CreationDate = DateTime.Now,
+                 CreationDate = DateTime.Today,
                  Details = "Details3",
                  EditDate = null,
                  Id = NoteIdForDelete,
@@ -52,7 +52,7 @@ public class NotesContextFactory
 
             new Note
             {
-                CreationDate = DateTime.Now,
+                CreationDate = DateTime.Today,
                 Details = "Details4",
                 EditDate = null,
                 Id = NoteIdForUpdate,
