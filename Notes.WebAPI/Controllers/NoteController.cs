@@ -12,7 +12,6 @@ namespace Notes.WebAPI.Controllers;
 
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
-[ApiVersionNeutral]
 [Produces("application/json")]
 [Route("api/{version:apiVersion}/[controller]")]
 public class NoteController : BaseController
