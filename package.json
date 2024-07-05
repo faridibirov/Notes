@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "node": "^22.4.0",
+    "oidc-client": "^1.11.5",
+    "react-bootstrap": "^2.10.4",
+    "react-router-dom": "^6.24.1"
+  }
+}
