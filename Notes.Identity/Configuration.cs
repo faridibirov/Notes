@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace Notes.Identity;
 
@@ -47,15 +48,15 @@ public static class Configuration
                RequirePkce = true,
                RedirectUris =
                {
-                   "http://.../signin-oidc"
+                   "http://localhost:3000/signin-oidc"
                },
                AllowedCorsOrigins =
                {
-                   "http://..."
+                   "http://localhost:3000"
                },
                PostLogoutRedirectUris =
                {
-                   "http:/.../signout-oidc"
+                   "http://localhost:3000/signout-oidc"
                },
 
                AllowedScopes =

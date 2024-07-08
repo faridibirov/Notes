@@ -11,7 +11,7 @@ const SigninOidc: FC<{}> = () => {
             navigate('/');
         }
         signinAsync();
-    }, [history]);
+    }, [navigate]);
     return <div>Redirecting...</div>;
 };
 

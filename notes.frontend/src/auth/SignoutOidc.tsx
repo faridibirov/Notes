@@ -10,7 +10,7 @@ const SignoutOidc: FC<{}> = () => {
             navigate('/');
         };
         signoutAsync();
-    }, [history]);
+    }, [navigate]);
     return <div>Redirecting...</div>;
 };
 
