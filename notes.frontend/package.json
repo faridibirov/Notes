@@ -10,9 +10,11 @@
     "@types/node": "^16.18.101",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "oidc-client": "^1.11.5",
     "react": "^18.0.0",
-  "react-dom": "^18.0.0",
-  "react-router-dom": "^6.0.0",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
@@ -40,5 +42,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-bootstrap": "^0.32.36",
+    "@types/react-router-dom": "^5.3.3"
   }
 }
