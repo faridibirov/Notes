@@ -10,6 +10,16 @@
 
     <div class="header">Sign Up</div>
     <div class="block">
+        <label>First Name</label>
+        <input asp-for="FirstName" class="input" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div class="block">
+        <label>Last Name</label>
+        <input asp-for="LastName" class="input" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <div class="block">
         <label>Username</label>
         <input asp-for="UserName" class="input" />
         <span asp-validation-for="UserName"></span>

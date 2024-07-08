@@ -66,7 +66,7 @@ public class AuthController: Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Regsiter(RegisterViewModel viewModel)
+    public async Task<IActionResult> Register(RegisterViewModel viewModel)
     {
         if (!ModelState.IsValid)
         {
@@ -76,6 +76,8 @@ public class AuthController: Controller
         var user = new AppUser
         {
             UserName = viewModel.UserName,
+            FirstName = viewModel.FirstName,
+            LastName = viewModel.LastName
 
         };
 
