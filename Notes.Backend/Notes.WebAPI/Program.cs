@@ -15,7 +15,13 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .WriteTo.File("NotesWebAppLog-.txt", rollingInterval:
+    RollingInterval.Day)
+    .CreateLogger();
 
+builder.Host.UseSerilog();
 
 builder.Configuration.AddJsonFile("appsettings.json");
 
@@ -69,11 +75,7 @@ builder.Services.AddApiVersioning();
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 builder.Services.AddHttpContextAccessor();
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-    .WriteTo.File("NotesWebAppLog-.txt", rollingInterval:
-    RollingInterval.Day)
-    .CreateLogger();
+
 
 var app = builder.Build();
 
