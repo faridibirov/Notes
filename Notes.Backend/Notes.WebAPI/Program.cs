@@ -8,6 +8,8 @@ using Notes.Application.Interfaces;
 using Notes.Persistence;
 using Notes.WebAPI;
 using Notes.WebAPI.Middleware;
+using Serilog;
+using Serilog.Events;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
@@ -64,6 +66,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApiVersioning();
 
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddHttpContextAccessor();
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .WriteTo.File("NotesWebAppLog-.txt", rollingInterval:
+    RollingInterval.Day)
+    .CreateLogger();
+
 var app = builder.Build();
 
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
@@ -93,5 +104,7 @@ app.UseEndpoints(endpoints=>
 {
     endpoints.MapControllers();
 });
+
+
 
 app.Run();
