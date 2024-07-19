@@ -6,6 +6,7 @@ using Notes.Application;
 using Notes.Application.Common.Mappings;
 using Notes.Application.Interfaces;
 using Notes.Persistence;
+using Notes.Persistence.EntityTypeConfigurations;
 using Notes.WebAPI;
 using Notes.WebAPI.Middleware;
 using Serilog;
@@ -78,6 +79,21 @@ builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
+
+// Инициализация базы данных
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    try
+    {
+        var context = serviceProvider.GetRequiredService<NotesDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch (Exception exception)
+    {
+        Log.Fatal(exception, "An error occurred while app initialization");
+    }
+}
 
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
